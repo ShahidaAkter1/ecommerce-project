@@ -1,15 +1,12 @@
 import { Request, Response } from "express";
 import { OrderValidationSchema } from "./orders.validation";
 import { OrdersServices } from "./order.service";
- 
- 
 
 //add products
 const createOrders = async (req: Request, res: Response) => {
   try {
     const { order: orderData } = req.body;
     // console.log(orderData);
-    
 
     const zodParseData = OrderValidationSchema.parse(orderData);
 
@@ -33,13 +30,37 @@ const createOrders = async (req: Request, res: Response) => {
 //get all products
 const getAllOrders = async (req: Request, res: Response) => {
   try {
-    const result = await  OrdersServices.getAllOrdersFromDB();
+    const { email } = req.query;
+    // console.log(email);
 
-    res.status(200).json({
-      success: true,
-      message: " All Orders retrieved successfully",
-      data: result,
-    });
+    if (email) {
+      if (typeof email === "string") {
+        const result = await OrdersServices.getAllOrdersFromDB(email);
+
+        if (result === null) {
+          res.status(200).json({
+            success: true,
+            message: `no orders found by using this email ${email}`,
+            data: result,
+          });
+        } else {
+          res.status(200).json({
+            success: true,
+            message: `Orders fetched successfully for user email! : ${email}`,
+            data: result,
+          });
+        }
+      } else {
+        res.status(400).json({ message: "Invalid email query parameter" });
+      }
+    } else {
+      const result = await OrdersServices.getAllOrdersFromDB("all");
+      res.status(200).json({
+        success: true,
+        message: " All Orders retrieved successfully",
+        data: result,
+      });
+    }
   } catch (error:any) {
     console.log(error);
     res.status(500).json({
@@ -50,10 +71,8 @@ const getAllOrders = async (req: Request, res: Response) => {
   }
 };
 
- 
 //export all
 export const OrdersController = {
-   createOrders,
-   getAllOrders
- 
+  createOrders,
+  getAllOrders,
 };
