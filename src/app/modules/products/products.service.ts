@@ -16,15 +16,45 @@ const getAllProductsFromDB=async()=>{
 
 //get single products
 const getSingleProductsFromDB=async(productsID:string )=>{
-    const result=await Product.find( {id:productsID});
+    const result=await Product.findOne( {id:productsID});
+    console.log(result);
+    
     return result;
 }
 
+//delete single products
+const deleteSingleProductsFromDB = async (proID: string) => {
+      const result = await Product.deleteOne({ id: proID });
+    // const result =await Student.aggregate([
+    //     {$match:{id:stuID}}
+    // ])
+    // console.log(result);
+    
+      return result;
+    };
+
+
+    //search products by text
+    const searchProductsFromDB=async(searchText:string )=>{
+        console.log(searchText);
+        
+        // const result=await Product.findOne( {
+        //     tags: { $regex: searchText, $options: "i" },
+        // });
+        const result=await Product.find( {
+             searchText
+        });
+        console.log(result);
+        
+        return result;
+    }
 
 export const ProductsServices={
     createProductsIntoDB,
     getAllProductsFromDB,
     getSingleProductsFromDB,
+    deleteSingleProductsFromDB,
+    searchProductsFromDB,
 
 
 }

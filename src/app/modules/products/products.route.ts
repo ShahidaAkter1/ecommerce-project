@@ -11,5 +11,9 @@ router.get('/products',ProductsController.getAllProducts)
 
 router.get('/products/:proID',ProductsController.getSingleProducts)
 
+router.delete('/products/:proID',ProductsController.deleteSingleProducts)
+
+router.get('/products/search',ProductsController.searchProducts)
+
 
 export const ProductsRoutes=router;
