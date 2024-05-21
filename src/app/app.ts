@@ -1,20 +1,9 @@
  
 
-// import express from 'express'
-
-// const app = express()
- 
-
-// app.get('/', (req, res) => {
-//   res.send('Hello world   Jewel')
-// })
-
-// export default app;
-
-
 
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
+import { ProductsRoutes } from './modules/products/products.route';
  
 const app: Application = express();
 
@@ -23,8 +12,8 @@ app.use(express.json());
 app.use(cors());
 app.use(express.text());
 
-//application routes
-// app.use('/api/v1/students',StudentsRoutes)//go which routes identify 
+// application routes
+app.use('/api',ProductsRoutes)//go which routes identify 
 
 
 
