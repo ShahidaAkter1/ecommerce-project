@@ -1,5 +1,5 @@
-import { TProduct } from "./products.interface";
-import { Product } from "./products.model";
+import { TProduct } from './products.interface';
+import { Product } from './products.model';
 
 //create products
 const createProductsIntoDB = async (product: TProduct) => {
@@ -10,14 +10,14 @@ const createProductsIntoDB = async (product: TProduct) => {
 //get all products and search product based on name field
 const getAllProductsFromDB = async (searchTerm: string) => {
   // console.log(searchTerm);
-  if (searchTerm === "all") {
+  if (searchTerm === 'all') {
     const result = await Product.find();
     return result;
   } else {
     const result = await Product.find({
       name: {
         $regex: searchTerm,
-        $options: "i",
+        $options: 'i',
       },
     });
     return result;
@@ -43,7 +43,7 @@ const updateSingleProductsFromDB = async (proID: string, newData: TProduct) => {
     { _id: proID },
     {
       $set: newData,
-    }
+    },
   );
   return result;
 };

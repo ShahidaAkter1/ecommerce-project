@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { ProductsServices } from './products.service';
 import { ProductValidationSchema } from './products.validation.zod';
- 
 
 //add products
 const createProducts = async (req: Request, res: Response) => {
@@ -51,7 +50,9 @@ const getAllProducts = async (req: Request, res: Response) => {
           });
         }
       } else {
-        res.status(400).json({ message: 'Invalid search term query parameter' });
+        res
+          .status(400)
+          .json({ message: 'Invalid search term query parameter' });
       }
     } else {
       const result = await ProductsServices.getAllProductsFromDB('all');
@@ -71,7 +72,6 @@ const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
- 
 //get single products
 const getSingleProducts = async (req: Request, res: Response) => {
   try {
@@ -123,7 +123,6 @@ const deleteSingleProducts = async (req: Request, res: Response) => {
   }
 };
 
-
 //update single products
 const updateSingleProducts = async (req: Request, res: Response) => {
   try {
@@ -131,8 +130,11 @@ const updateSingleProducts = async (req: Request, res: Response) => {
     const { product: productData } = req.body;
 
     const zodParseData = ProductValidationSchema.parse(productData);
- 
-    const result = await ProductsServices.updateSingleProductsFromDB(proID,zodParseData);
+
+    const result = await ProductsServices.updateSingleProductsFromDB(
+      proID,
+      zodParseData,
+    );
 
     if (result === null) {
       res.status(200).json({
@@ -156,8 +158,6 @@ const updateSingleProducts = async (req: Request, res: Response) => {
     });
   }
 };
-
-
 
 //export all
 export const ProductsController = {

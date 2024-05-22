@@ -14,7 +14,6 @@ const InventorySchema = z.object({
 
 // Define the Product schema
 const ProductSchema = z.object({
-  
   name: z.string().nonempty(),
   description: z.string().nonempty(),
   price: z.number().positive(),

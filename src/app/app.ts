@@ -15,7 +15,6 @@ app.use('/api', ProductsRoutes); //go which routes identify
 app.use('/api', OrderRoutes); //go which routes identify
 
 app.get('/', (req: Request, res: Response) => {
- 
   res.json({
     message: 'e-commerce crud app is running',
   });

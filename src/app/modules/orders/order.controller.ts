@@ -12,11 +12,21 @@ const createOrders = async (req: Request, res: Response) => {
 
     const result = await OrdersServices.createOrdersIntoDB(zodParseData);
 
-    res.status(200).json({
-      success: true,
-      message: 'order added successfully',
-      data: result,
-    });
+    const [returnResult, previousQuantity, quantity] = result;
+    // console.log( previousQuantity,quantity);
+
+    if (quantity > previousQuantity) {
+      res.status(400).json({
+        success: false,
+        message: 'Insufficient quantity available in inventory',
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        message: 'order added successfully',
+        data: returnResult,
+      });
+    }
   } catch (error: any) {
     console.log(error);
     res.status(500).json({
@@ -61,7 +71,7 @@ const getAllOrders = async (req: Request, res: Response) => {
         data: result,
       });
     }
-  } catch (error:any) {
+  } catch (error: any) {
     // console.log(error);
     res.status(500).json({
       success: false,

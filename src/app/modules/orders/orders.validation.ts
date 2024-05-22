@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 const orderSchemaZod = z.object({
-  id: z.string(),
   email: z.string().email(),
   productId: z.string(),
   price: z.number().positive(),

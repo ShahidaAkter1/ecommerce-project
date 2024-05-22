@@ -1,5 +1,3 @@
- 
-
 export type TVariant = {
   type: string;
   value: string;
@@ -11,7 +9,6 @@ export type TInventory = {
 };
 
 export type TProduct = {
- 
   name: string;
   description: string;
   price: number;
