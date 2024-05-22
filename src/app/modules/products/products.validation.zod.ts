@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 // Define the Variant schema
 const VariantSchema = z.object({
