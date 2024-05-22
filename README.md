@@ -30,11 +30,7 @@ npm install
 Set up environment variables:
 
 ```bash
-NODE_ENV=development
-
-PORT=5000
-
-DATABASE_URL= mongodb+srv://ecommerce-project:36uyGeoheTKxtzLl@cluster0.843endu.mongodb.net/ecommerce-project?retryWrites=true&w=majority&appName=Cluster0
+Create a .env file and add necessary environment variables, such as MongoDB connection URI, JWT secret key, etc.
 ``` 
 
 Start the server:
