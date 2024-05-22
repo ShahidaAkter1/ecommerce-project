@@ -15,7 +15,7 @@ const getAllOrdersFromDB = async (email: string) => {
     const result = await Order.find();
     return result;
   } else {
-    const result = await Order.findOne({ email });
+    const result = await Order.find({ email });
     return result;
   }
 

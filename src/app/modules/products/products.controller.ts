@@ -71,28 +71,8 @@ const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
-// //get all products
-// const getAllProducts = async (req: Request, res: Response) => {
-//   try {
-//     const result = await ProductsServices.getAllProductsFromDB();
-
-//     res.status(200).json({
-//       success: true,
-//       message: " All products retrieved successfully",
-//       data: result,
-//     });
-//   } catch (error:any) {
-//     console.log(error);
-//     res.status(500).json({
-//       success: false,
-//       message: error.message || " something wrong        ",
-//       error: error,
-//     });
-//   }
-// };
-
+ 
 //get single products
-
 const getSingleProducts = async (req: Request, res: Response) => {
   try {
     const { proID } = req.params;
@@ -143,10 +123,47 @@ const deleteSingleProducts = async (req: Request, res: Response) => {
   }
 };
 
+
+//update single products
+const updateSingleProducts = async (req: Request, res: Response) => {
+  try {
+    const { proID } = req.params;
+    const { product: productData } = req.body;
+
+    const zodParseData = ProductValidationSchema.parse(productData);
+ 
+    const result = await ProductsServices.updateSingleProductsFromDB(proID,zodParseData);
+
+    if (result === null) {
+      res.status(200).json({
+        success: true,
+        message: 'no products found',
+        data: result,
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        message: '  updated products   successfully',
+        data: result,
+      });
+    }
+  } catch (error: any) {
+    // console.log(error);
+    res.status(500).json({
+      success: false,
+      message: ' something went wrong',
+      error: error,
+    });
+  }
+};
+
+
+
 //export all
 export const ProductsController = {
   createProducts,
   getAllProducts,
   getSingleProducts,
   deleteSingleProducts,
+  updateSingleProducts,
 };
